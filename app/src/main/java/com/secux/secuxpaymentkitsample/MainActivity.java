@@ -2,16 +2,21 @@ package com.secux.secuxpaymentkitsample;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.app.ActivityOptionsCompat;
 
 import android.Manifest;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.util.Pair;
 import android.view.View;
+import android.widget.Toast;
+
 
 import com.secuxtech.paymentkit.SecuXAccountManager;
 import com.secuxtech.paymentkit.SecuXPaymentManager;
@@ -20,8 +25,10 @@ import com.secuxtech.paymentkit.SecuXStoreInfo;
 
 import org.json.JSONObject;
 
-public class MainActivity extends AppCompatActivity {
 
+
+
+public class MainActivity extends BaseActivity{
 
 
     final private String mAccountName = "secuxdemo";
@@ -32,7 +39,8 @@ public class MainActivity extends AppCompatActivity {
     private SecuXPaymentManager mPaymentManager = new SecuXPaymentManager();
     private SecuXAccountManager mAccountManager = new SecuXAccountManager();
 
-    private Context mContext = this;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,43 +56,38 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    public void onClickTestWithHardcodeQRCodeButton(View v){
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(resultCode == RESULT_OK && data!=null){
+            if (requestCode == 0x01){
+
+
+            }
+
+        }
+    }
+
+    public void onClickScanQRCodeButton(View v){
+        Intent newIntent = new Intent(mContext, ScanQRCodeActivity.class);
+        startActivity(newIntent);
+
+        /*
         new Thread(new Runnable() {
             @Override
             public void run() {
                 final Pair<Integer, String> ret = doPromotionVerify(mTestQRCode, "Test0001");
-
-                runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        final AlertDialog alertDialog = new AlertDialog.Builder(mContext).create();
-                        alertDialog.setTitle("Do promotion activity result");
-
-                        alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, "OK", new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int which) {
-                                alertDialog.dismiss();
-                            }
-                        });
-
-
-                        if (ret.first == 0){
-                            alertDialog.setMessage("Successfully!");
-                        }else{
-                            alertDialog.setMessage("Failed! " + ret.second);
-                        }
-
-                        alertDialog.show();
-                    }
-                });
+                if (ret.first == 0){
+                    showAlertInMain("Successfully!", "");
+                }else{
+                    showAlertInMain("Failed! ", ret.second);
+                }
 
             }
         }).start();
 
-
-    }
-
-    public void onClickTestWithRealQRCodeButton(View v){
+         */
 
     }
 
@@ -156,4 +159,6 @@ public class MainActivity extends AppCompatActivity {
 
         return new Pair<>(0, "");
     }
+
+
 }

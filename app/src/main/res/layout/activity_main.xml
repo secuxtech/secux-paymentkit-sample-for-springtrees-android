@@ -10,25 +10,13 @@
         android:id="@+id/button_test_with_hardcode_qrcode"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
-        android:text="Test with hardcode QRCode"
-        android:onClick="onClickTestWithHardcodeQRCodeButton"
+        android:text="Scan QRCode"
+        android:onClick="onClickScanQRCodeButton"
 
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         android:layout_marginTop="100dp"/>
 
-
-    <Button
-        android:id="@+id/button"
-        android:layout_width="300dp"
-        android:layout_height="wrap_content"
-        android:text="Test with real QRCode"
-        android:onClick="onClickTestWithRealQRCodeButton"
-
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/button_test_with_hardcode_qrcode"
-        android:layout_marginTop="20dp"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
