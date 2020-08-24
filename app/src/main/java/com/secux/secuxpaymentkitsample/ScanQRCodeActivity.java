@@ -2,6 +2,7 @@ package com.secux.secuxpaymentkitsample;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import cn.bingoogolapple.qrcode.core.QRCodeView;
@@ -24,28 +25,30 @@ public class ScanQRCodeActivity extends BaseActivity implements QRCodeView.Deleg
     protected void onStart() {
         super.onStart();
 
-        mZXingView.startCamera(); // 打开后置摄像头开始预览，但是并未开始识别
-//        mZXingView.startCamera(Camera.CameraInfo.CAMERA_FACING_FRONT); // 打开前置摄像头开始预览，但是并未开始识别
-
-        mZXingView.startSpotAndShowRect(); // 显示扫描框，并开始识别
+        mZXingView.startCamera();
+        mZXingView.startSpotAndShowRect();
     }
 
     @Override
     protected void onStop() {
-        mZXingView.stopCamera(); // 关闭摄像头预览，并且隐藏扫描框
+        mZXingView.stopCamera();
         super.onStop();
     }
 
     @Override
     protected void onDestroy() {
-        mZXingView.onDestroy(); // 销毁二维码扫描控件
+        mZXingView.onDestroy();
         super.onDestroy();
     }
 
     @Override
     public void onScanQRCodeSuccess(String result) {
-        showAlert(result, "");
+        //showAlert(result, "");
 
+        Intent intent = new Intent();
+        intent.putExtra("qrcode", result);
+        this.setResult(RESULT_OK, intent);
+        this.finish();
 
     }
 

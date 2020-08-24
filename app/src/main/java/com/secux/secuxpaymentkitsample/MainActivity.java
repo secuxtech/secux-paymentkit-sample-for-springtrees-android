@@ -34,11 +34,9 @@ public class MainActivity extends BaseActivity{
     final private String mAccountName = "secuxdemo";
     final private String mAccountPwd = "secuxdemo168";
 
-    final private String mTestQRCode = "{\"amount\":\"1\", \"coinType\":\"DCT:SPC\", \"nonce\":\"281aedbc\", \"deviceIDhash\":\"4afff62e0b314266d9e1b3a48158d56134331a9f\"}";
 
     private SecuXPaymentManager mPaymentManager = new SecuXPaymentManager();
     private SecuXAccountManager mAccountManager = new SecuXAccountManager();
-
 
 
 
@@ -62,7 +60,17 @@ public class MainActivity extends BaseActivity{
         super.onActivityResult(requestCode, resultCode, data);
         if(resultCode == RESULT_OK && data!=null){
             if (requestCode == 0x01){
+                final String qrcode = data.getExtras().getString("qrcode");
 
+                showProgress("processing...");
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+
+                        doPromotionVerify(qrcode, "TransTest0001");
+
+                    }
+                }).start();
 
             }
 
@@ -71,23 +79,10 @@ public class MainActivity extends BaseActivity{
 
     public void onClickScanQRCodeButton(View v){
         Intent newIntent = new Intent(mContext, ScanQRCodeActivity.class);
-        startActivity(newIntent);
+        //startActivity(newIntent);
 
-        /*
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                final Pair<Integer, String> ret = doPromotionVerify(mTestQRCode, "Test0001");
-                if (ret.first == 0){
-                    showAlertInMain("Successfully!", "");
-                }else{
-                    showAlertInMain("Failed! ", ret.second);
-                }
+        startActivityForResult(newIntent, 0x01);
 
-            }
-        }).start();
-
-         */
 
     }
 
@@ -102,62 +97,62 @@ public class MainActivity extends BaseActivity{
         return false;
     }
 
+
     public Pair<Integer, String> doPromotionVerify(String devQRCodeInfo, String transID){
 
-        String nonce = "";
-        String amount = "";
-        String token = "";
-        String coin = "";
-        String devIDHash = "";
-
-        try {
-            JSONObject infoJson = new JSONObject(devQRCodeInfo);
-            amount = infoJson.optString("amount");
-            devIDHash = infoJson.getString("deviceIDhash");
-            nonce = infoJson.getString("nonce");
-            if (nonce.length()!=8){
-                return new Pair<>(-1, "The QRCode has invalid nonce!");
-            }
-
-            String coinTokenInfo = infoJson.optString("coinType");
-            String[] itemArr = coinTokenInfo.split(":");
-            if (itemArr.length != 2){
-                return new Pair<>(-1, "The QRCode has invalid promotion code!");
-            }
-            coin = itemArr[0];
-            token = itemArr[1];
-
-
+        SecuXQRCodeParser qrCodeParser = null;
+        try{
+            qrCodeParser = new SecuXQRCodeParser(devQRCodeInfo);
         }catch (Exception e){
-            e.printStackTrace();
-            return new Pair<>(-1, "Invalid QRCode infor.");
+            showAlertInMain("Unsupported QRCode!", "", true);
+            return new Pair<>(-1, "Invalid QRCode");
         }
 
-
         if (!login(this.mAccountName, this.mAccountPwd)){
+            showAlertInMain("Login failed!", "", true);
             return new Pair<>(-2, "Loin failed!");
         }
 
-        Pair<Pair<Integer, String>, SecuXStoreInfo> storeInfo = mPaymentManager.getStoreInfo("4afff62e0b314266d9e1b3a48158d56134331a9f");
+        final Pair<Pair<Integer, String>, SecuXStoreInfo> storeInfo = mPaymentManager.getStoreInfo(qrCodeParser.mDevIDHash);
         if (storeInfo.first.first != SecuXServerRequestHandler.SecuXRequestOK){
+            showAlertInMain("Get store info. failed!", "", true);
             return new Pair<>(-3, "Get store info. from server failed! error: " + storeInfo.first.second);
         }
 
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                SecuXStoreInfo.SecuXPromotion promotion = storeInfo.second.getPromotionDetails("test");
+                PromotionDetailsDialog detailsDlg = new PromotionDetailsDialog();
+                detailsDlg.showProgressDialog(mContext, storeInfo.second, promotion);
+            }
+        });
+
+
+        /*
+
         Pair<Integer, String> verifyRet = mPaymentManager.doActivity(this, this.mAccountName, storeInfo.second.mDevID,
-                                                                        coin, token, transID, amount, nonce);
+                                                                        qrCodeParser.mCoin, qrCodeParser.mToken, transID,
+                                                                        qrCodeParser.mAmount, qrCodeParser.mNonce);
         if (verifyRet.first == SecuXServerRequestHandler.SecuXRequestUnauthorized){
             if (!login(this.mAccountName, this.mAccountPwd)){
-                return new Pair<>(-2, "Loin failed!");
+                showAlertInMain("Login failed!", "", true);
+                return new Pair<>(-2, "Login failed!");
             }
-            verifyRet = mPaymentManager.doActivity(this, "secuxdemo", storeInfo.second.mDevID,
-                    "DCT", "SPC", transID, "1", "9a7dc748");
+            verifyRet = mPaymentManager.doActivity(this, this.mAccountName, storeInfo.second.mDevID,
+                                                    qrCodeParser.mCoin, qrCodeParser.mToken, transID,
+                                                    qrCodeParser.mAmount, qrCodeParser.mNonce);
         }
 
         if (verifyRet.first != SecuXServerRequestHandler.SecuXRequestOK){
+            showAlertInMain("Verify the promotion data to P22 failed!", "error: " + verifyRet.second, true);
             return new Pair<>(-4, "Verify the promotion data to P22 failed! error:" + verifyRet.second);
+        }else{
+            showAlertInMain("Verify the promotion data to P22 successfully!", "", true);
         }
-
+        */
         return new Pair<>(0, "");
+
     }
 
 
