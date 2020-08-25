@@ -62,6 +62,10 @@ public class BaseActivity  extends AppCompatActivity {
         });
     }
 
+    public void hideProgress(){
+        mProgressDlg.dismiss();
+    }
+
     public void hideProgressInMain(){
         runOnUiThread(new Runnable() {
             @Override

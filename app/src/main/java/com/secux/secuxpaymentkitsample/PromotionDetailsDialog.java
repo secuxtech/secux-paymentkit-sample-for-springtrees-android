@@ -1,6 +1,8 @@
 package com.secux.secuxpaymentkitsample;
 
 import android.content.Context;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,10 +19,12 @@ public class PromotionDetailsDialog {
     private AlertDialog mAlertDialog;
 
 
-    public void showProgressDialog(Context context, SecuXStoreInfo storeInfo, SecuXStoreInfo.SecuXPromotion promotion) {
+    public void showDialog(Context context, SecuXStoreInfo storeInfo, SecuXStoreInfo.SecuXPromotion promotion) {
 
-        mAlertDialog = new AlertDialog.Builder(context, R.style.CustomProgressDialog).create();
+        mAlertDialog = new AlertDialog.Builder(context).create();
         View loadView = LayoutInflater.from(context).inflate(R.layout.dialog_promotion_detials, null);
+
+        mAlertDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         mAlertDialog.setView(loadView, 0, 0, 0, 0);
         mAlertDialog.setCanceledOnTouchOutside(false);
 
@@ -38,6 +42,9 @@ public class PromotionDetailsDialog {
 
         TextView tvPromotionDesc = loadView.findViewById(R.id.textview_promotion_desc);
         tvPromotionDesc.setText(promotion.mDesc);
+
+        ImageView ivPromotionImg = loadView.findViewById(R.id.imageView_promotion_img);
+        ivPromotionImg.setImageBitmap(promotion.mImg);
 
         mAlertDialog.show();
     }

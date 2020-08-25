@@ -1,13 +1,8 @@
 package com.secux.secuxpaymentkitsample;
 
-import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityCompat;
-import androidx.core.app.ActivityOptionsCompat;
+
 
 import android.Manifest;
-import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Build;
@@ -15,15 +10,13 @@ import android.os.Bundle;
 import android.util.Log;
 import android.util.Pair;
 import android.view.View;
-import android.widget.Toast;
-
 
 import com.secuxtech.paymentkit.SecuXAccountManager;
 import com.secuxtech.paymentkit.SecuXPaymentManager;
 import com.secuxtech.paymentkit.SecuXServerRequestHandler;
 import com.secuxtech.paymentkit.SecuXStoreInfo;
 
-import org.json.JSONObject;
+
 
 
 
@@ -34,11 +27,13 @@ public class MainActivity extends BaseActivity{
     final private String mAccountName = "secuxdemo";
     final private String mAccountPwd = "secuxdemo168";
 
-
     private SecuXPaymentManager mPaymentManager = new SecuXPaymentManager();
     private SecuXAccountManager mAccountManager = new SecuXAccountManager();
 
+    PromotionDetailsDialog mPromotionDetailsDlg = new PromotionDetailsDialog();
 
+    SecuXQRCodeParser mQRCodeParser = null;
+    SecuXStoreInfo mStoreInfo = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,7 +62,7 @@ public class MainActivity extends BaseActivity{
                     @Override
                     public void run() {
 
-                        doPromotionVerify(qrcode, "TransTest0001");
+                        doPromotionVerify(qrcode);
 
                     }
                 }).start();
@@ -98,62 +93,78 @@ public class MainActivity extends BaseActivity{
     }
 
 
-    public Pair<Integer, String> doPromotionVerify(String devQRCodeInfo, String transID){
+    public void doPromotionVerify(String devQRCodeInfo){
 
-        SecuXQRCodeParser qrCodeParser = null;
+
         try{
-            qrCodeParser = new SecuXQRCodeParser(devQRCodeInfo);
+            mQRCodeParser = new SecuXQRCodeParser(devQRCodeInfo);
         }catch (Exception e){
             showAlertInMain("Unsupported QRCode!", "", true);
-            return new Pair<>(-1, "Invalid QRCode");
+            return;
         }
 
         if (!login(this.mAccountName, this.mAccountPwd)){
             showAlertInMain("Login failed!", "", true);
-            return new Pair<>(-2, "Loin failed!");
+            return;
         }
 
-        final Pair<Pair<Integer, String>, SecuXStoreInfo> storeInfo = mPaymentManager.getStoreInfo(qrCodeParser.mDevIDHash);
+        final Pair<Pair<Integer, String>, SecuXStoreInfo> storeInfo = mPaymentManager.getStoreInfo(mQRCodeParser.mDevIDHash);
         if (storeInfo.first.first != SecuXServerRequestHandler.SecuXRequestOK){
             showAlertInMain("Get store info. failed!", "", true);
-            return new Pair<>(-3, "Get store info. from server failed! error: " + storeInfo.first.second);
+            return;
         }
+
+        mStoreInfo = storeInfo.second;
 
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
+                hideProgress();
                 SecuXStoreInfo.SecuXPromotion promotion = storeInfo.second.getPromotionDetails("test");
-                PromotionDetailsDialog detailsDlg = new PromotionDetailsDialog();
-                detailsDlg.showProgressDialog(mContext, storeInfo.second, promotion);
+                mPromotionDetailsDlg.showDialog(mContext, storeInfo.second, promotion);
             }
         });
 
 
-        /*
+    }
 
-        Pair<Integer, String> verifyRet = mPaymentManager.doActivity(this, this.mAccountName, storeInfo.second.mDevID,
-                                                                        qrCodeParser.mCoin, qrCodeParser.mToken, transID,
-                                                                        qrCodeParser.mAmount, qrCodeParser.mNonce);
+
+    public void confirmPromotion(SecuXQRCodeParser qrCodeParser, SecuXStoreInfo storeInfo, String transID){
+        Pair<Integer, String> verifyRet = mPaymentManager.doActivity(this, this.mAccountName, storeInfo.mDevID,
+                qrCodeParser.mCoin, qrCodeParser.mToken, transID,
+                qrCodeParser.mAmount, qrCodeParser.mNonce);
+
         if (verifyRet.first == SecuXServerRequestHandler.SecuXRequestUnauthorized){
             if (!login(this.mAccountName, this.mAccountPwd)){
                 showAlertInMain("Login failed!", "", true);
-                return new Pair<>(-2, "Login failed!");
+                return;
             }
-            verifyRet = mPaymentManager.doActivity(this, this.mAccountName, storeInfo.second.mDevID,
-                                                    qrCodeParser.mCoin, qrCodeParser.mToken, transID,
-                                                    qrCodeParser.mAmount, qrCodeParser.mNonce);
+            verifyRet = mPaymentManager.doActivity(this, this.mAccountName, storeInfo.mDevID,
+                    qrCodeParser.mCoin, qrCodeParser.mToken, transID,
+                    qrCodeParser.mAmount, qrCodeParser.mNonce);
         }
 
         if (verifyRet.first != SecuXServerRequestHandler.SecuXRequestOK){
             showAlertInMain("Verify the promotion data to P22 failed!", "error: " + verifyRet.second, true);
-            return new Pair<>(-4, "Verify the promotion data to P22 failed! error:" + verifyRet.second);
         }else{
             showAlertInMain("Verify the promotion data to P22 successfully!", "", true);
         }
-        */
-        return new Pair<>(0, "");
-
     }
 
+    public void onCancelButtonClick(View v){
+        mPromotionDetailsDlg.dismiss();
+    }
+
+    public void onConfirmButtonClick(View v){
+        mPromotionDetailsDlg.dismiss();
+
+        showProgress("Confirm...");
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                confirmPromotion(mQRCodeParser, mStoreInfo, "TestTran00001");
+            }
+        }).start();
+    }
 
 }

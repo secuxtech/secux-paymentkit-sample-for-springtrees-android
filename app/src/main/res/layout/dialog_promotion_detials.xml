@@ -32,9 +32,18 @@
             android:textColor="#282828"
             android:textSize="20sp" />
 
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/colorPurple"
+
+            android:layout_marginTop="15dp"/>
+
+
         <TextView
             android:id="@+id/textview_promotion_store_name"
-            android:layout_width="280dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
 
             android:layout_marginTop="16dp"
@@ -44,7 +53,7 @@
             android:textAlignment="center"
             android:text="Store name"
             android:textColor="#282828"
-            android:textSize="20sp" />
+            android:textSize="18sp" />
 
 
         <ImageView
@@ -52,7 +61,7 @@
             android:layout_width="50dp"
             android:layout_height="50dp"
 
-            android:visibility="invisible"
+            android:visibility="visible"
             android:layout_marginTop="10dp"
             android:layout_gravity="center"/>
 
@@ -67,7 +76,7 @@
 
             android:text="Promotion name"
             android:textColor="#282828"
-            android:textSize="20sp" />
+            android:textSize="17sp" />
 
 
         <TextView
@@ -82,7 +91,18 @@
 
             android:text="Promotion desc"
             android:textColor="#282828"
-            android:textSize="20sp" />
+            android:textSize="16sp" />
+
+
+        <ImageView
+            android:id="@+id/imageView_promotion_img"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:visibility="visible"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="20dp"
+            android:layout_gravity="left"/>
 
 
         <LinearLayout
