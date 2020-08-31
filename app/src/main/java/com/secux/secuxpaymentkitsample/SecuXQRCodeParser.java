@@ -12,12 +12,14 @@ public class SecuXQRCodeParser {
     public String mToken       = "";
     public String mNonce       = "";
     public String mDevIDHash   = "";
+    public String mRefill      = "";
 
     public SecuXQRCodeParser(String p22QRCode) throws Exception{
 
         try {
             JSONObject infoJson = new JSONObject(p22QRCode);
-            String amount = infoJson.getString("amount");
+            String amount = infoJson.optString("amount");
+            String refill = infoJson.optString("refill");
             String devIDHash = infoJson.getString("deviceIDhash");
             String nonce = infoJson.getString("nonce");
             if (nonce.length()!=8){
@@ -33,6 +35,7 @@ public class SecuXQRCodeParser {
             this.mCoin = itemArr[0];
             this.mToken = itemArr[1];
             this.mAmount = amount;
+            this.mRefill = refill;
             this.mNonce = nonce;
             this.mDevIDHash = devIDHash;
 

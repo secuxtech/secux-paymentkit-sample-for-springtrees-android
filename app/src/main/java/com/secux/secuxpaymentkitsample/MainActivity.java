@@ -17,10 +17,6 @@ import com.secuxtech.paymentkit.SecuXServerRequestHandler;
 import com.secuxtech.paymentkit.SecuXStoreInfo;
 
 
-
-
-
-
 public class MainActivity extends BaseActivity{
 
 
@@ -31,6 +27,8 @@ public class MainActivity extends BaseActivity{
     private SecuXAccountManager mAccountManager = new SecuXAccountManager();
 
     PromotionDetailsDialog mPromotionDetailsDlg = new PromotionDetailsDialog();
+    PaymentDetailsDialog mPaymentDetailsDlg = new PaymentDetailsDialog();
+    RefillDetailsDialog mRefillDetailsDlg = new RefillDetailsDialog();
 
     SecuXQRCodeParser mQRCodeParser = null;
     SecuXStoreInfo mStoreInfo = null;
@@ -57,13 +55,40 @@ public class MainActivity extends BaseActivity{
             if (requestCode == 0x01){
                 final String qrcode = data.getExtras().getString("qrcode");
 
+                try{
+                    mQRCodeParser = new SecuXQRCodeParser(qrcode);
+                }catch (Exception e){
+                    showAlertInMain("Unsupported QRCode!", "", true);
+                    return;
+                }
+
                 showProgress("processing...");
+
                 new Thread(new Runnable() {
                     @Override
                     public void run() {
+                        if (!login(mAccountName, mAccountPwd)){
+                            showAlertInMain("Login failed!", "", true);
+                            return;
+                        }
 
-                        doPromotionVerify(qrcode);
+                        final Pair<Pair<Integer, String>, SecuXStoreInfo> storeInfo = mPaymentManager.getStoreInfo(mQRCodeParser.mDevIDHash);
+                        if (storeInfo.first.first != SecuXServerRequestHandler.SecuXRequestOK){
+                            showAlertInMain("Get store info. failed!", "", true);
+                            return;
+                        }
 
+                        mStoreInfo = storeInfo.second;
+
+                        if (mQRCodeParser.mAmount.length()>0) {
+                            if (mQRCodeParser.mToken == "$") {
+                                showPromotionDetails();
+                            }else{
+                                showPaymentDetails();
+                            }
+                        }else if (mQRCodeParser.mRefill.length()>0) {
+                            showRefillDetails();
+                        }
                     }
                 }).start();
 
@@ -93,46 +118,46 @@ public class MainActivity extends BaseActivity{
     }
 
 
-    public void doPromotionVerify(String devQRCodeInfo){
-
-
-        try{
-            mQRCodeParser = new SecuXQRCodeParser(devQRCodeInfo);
-        }catch (Exception e){
-            showAlertInMain("Unsupported QRCode!", "", true);
-            return;
-        }
-
-        if (!login(this.mAccountName, this.mAccountPwd)){
-            showAlertInMain("Login failed!", "", true);
-            return;
-        }
-
-        final Pair<Pair<Integer, String>, SecuXStoreInfo> storeInfo = mPaymentManager.getStoreInfo(mQRCodeParser.mDevIDHash);
-        if (storeInfo.first.first != SecuXServerRequestHandler.SecuXRequestOK){
-            showAlertInMain("Get store info. failed!", "", true);
-            return;
-        }
-
-        mStoreInfo = storeInfo.second;
+    public void showPromotionDetails(){
 
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
                 hideProgress();
-                SecuXStoreInfo.SecuXPromotion promotion = storeInfo.second.getPromotionDetails("test");
-                mPromotionDetailsDlg.showDialog(mContext, storeInfo.second, promotion);
+                SecuXStoreInfo.SecuXPromotion promotion = mStoreInfo.getPromotionDetails(mQRCodeParser.mToken);
+                mPromotionDetailsDlg.showDialog(mContext, mStoreInfo, promotion);
             }
         });
 
+    }
+
+    public void showPaymentDetails(){
+
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                hideProgress();
+                mPaymentDetailsDlg.showDialog(mContext, mStoreInfo, mQRCodeParser.mCoin, mQRCodeParser.mToken, mQRCodeParser.mAmount);
+            }
+        });
 
     }
 
+    public void showRefillDetails(){
 
-    public void confirmPromotion(SecuXQRCodeParser qrCodeParser, SecuXStoreInfo storeInfo, String transID){
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                hideProgress();
+                mRefillDetailsDlg.showDialog(mContext, mStoreInfo, mQRCodeParser.mCoin, mQRCodeParser.mToken, mQRCodeParser.mRefill);
+            }
+        });
+
+    }
+
+    public void confirmOperation(SecuXStoreInfo storeInfo, String transID, String coin, String token, String amount, String nonce){
         Pair<Integer, String> verifyRet = mPaymentManager.doActivity(this, this.mAccountName, storeInfo.mDevID,
-                qrCodeParser.mCoin, qrCodeParser.mToken, transID,
-                qrCodeParser.mAmount, qrCodeParser.mNonce);
+                coin, token, transID, amount, nonce);
 
         if (verifyRet.first == SecuXServerRequestHandler.SecuXRequestUnauthorized){
             if (!login(this.mAccountName, this.mAccountPwd)){
@@ -140,31 +165,63 @@ public class MainActivity extends BaseActivity{
                 return;
             }
             verifyRet = mPaymentManager.doActivity(this, this.mAccountName, storeInfo.mDevID,
-                    qrCodeParser.mCoin, qrCodeParser.mToken, transID,
-                    qrCodeParser.mAmount, qrCodeParser.mNonce);
+                    coin, token, transID, amount, nonce);
         }
 
         if (verifyRet.first != SecuXServerRequestHandler.SecuXRequestOK){
-            showAlertInMain("Verify the promotion data to P22 failed!", "error: " + verifyRet.second, true);
+            showAlertInMain("Verify the operation data to P22 failed!", "error: " + verifyRet.second, true);
         }else{
-            showAlertInMain("Verify the promotion data to P22 successfully!", "", true);
+            showAlertInMain("Verify the operation data to P22 successfully!", "", true);
         }
     }
 
-    public void onCancelButtonClick(View v){
+
+    public void onCancelPromotionButtonClick(View v){
         mPromotionDetailsDlg.dismiss();
     }
 
-    public void onConfirmButtonClick(View v){
+    public void onConfirmPromotionButtonClick(View v){
         mPromotionDetailsDlg.dismiss();
 
         showProgress("Confirm...");
         new Thread(new Runnable() {
             @Override
             public void run() {
-                confirmPromotion(mQRCodeParser, mStoreInfo, "TestTran00001");
+                confirmOperation(mStoreInfo, "Promotion00001", mQRCodeParser.mCoin, mQRCodeParser.mToken, mQRCodeParser.mAmount, mQRCodeParser.mNonce);
             }
         }).start();
     }
 
+
+    public void onCancelRefillButtonClick(View v){
+        mRefillDetailsDlg.dismiss();
+    }
+
+    public void onConfirmRefillButtonClick(View v){
+        mRefillDetailsDlg.dismiss();
+
+        showProgress("Confirm...");
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                confirmOperation(mStoreInfo, "Refill00001", mQRCodeParser.mCoin, mQRCodeParser.mToken, mQRCodeParser.mRefill, mQRCodeParser.mNonce);
+            }
+        }).start();
+    }
+
+    public void onCancelPaymentButtonClick(View v){
+        mPaymentDetailsDlg.dismiss();
+    }
+
+    public void onConfirmPaymentButtonClick(View v){
+        mPaymentDetailsDlg.dismiss();
+
+        showProgress("Confirm...");
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                confirmOperation(mStoreInfo, "Payment00001", mQRCodeParser.mCoin, mQRCodeParser.mToken, mQRCodeParser.mAmount, mQRCodeParser.mNonce);
+            }
+        }).start();
+    }
 }

@@ -2,10 +2,7 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:clickable="true"
-    android:focusableInTouchMode="true"
-    android:background="@null">
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <LinearLayout
         android:layout_width="wrap_content"
@@ -19,7 +16,7 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <TextView
-            android:id="@+id/textview_promotion_type"
+            android:id="@+id/textview_payment_type"
             android:layout_width="280dp"
             android:layout_height="wrap_content"
 
@@ -28,7 +25,7 @@
             android:layout_marginRight="16dp"
 
             android:textAlignment="center"
-            android:text="Promotion"
+            android:text="Payment"
             android:textColor="#282828"
             android:textSize="20sp" />
 
@@ -42,7 +39,7 @@
 
 
         <TextView
-            android:id="@+id/textview_promotion_store_name"
+            android:id="@+id/textview_payment_store_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
 
@@ -66,7 +63,7 @@
             android:layout_gravity="center"/>
 
         <TextView
-            android:id="@+id/textview_promotion_name"
+            android:id="@+id/textview_payment_coin_token"
             android:layout_width="280dp"
             android:layout_height="wrap_content"
 
@@ -74,13 +71,13 @@
             android:layout_marginLeft="16dp"
             android:layout_marginRight="16dp"
 
-            android:text="Promotion name"
+            android:text="DCT:SPC"
             android:textColor="#282828"
             android:textSize="17sp" />
 
 
         <TextView
-            android:id="@+id/textview_promotion_desc"
+            android:id="@+id/textview_payment_amount"
             android:layout_width="280dp"
             android:layout_height="wrap_content"
 
@@ -89,20 +86,10 @@
             android:layout_marginRight="16dp"
 
 
-            android:text="Promotion desc"
+            android:text="Amount: 10"
             android:textColor="#282828"
-            android:textSize="16sp" />
+            android:textSize="20sp" />
 
-
-        <ImageView
-            android:id="@+id/imageView_promotion_img"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-
-            android:visibility="visible"
-            android:layout_marginTop="10dp"
-            android:layout_marginLeft="20dp"
-            android:layout_gravity="left"/>
 
 
         <LinearLayout
@@ -120,7 +107,7 @@
                 android:layout_marginRight="5dp"
                 android:layout_marginBottom="5dp"
                 android:background="@null"
-                android:onClick="onCancelPromotionButtonClick"
+                android:onClick="onCancelPaymentButtonClick"
 
                 android:textSize="15sp"
                 android:textColor="#9C9C9C"
@@ -133,7 +120,7 @@
                 android:layout_marginRight="5dp"
                 android:layout_marginBottom="5dp"
                 android:background="@null"
-                android:onClick="onConfirmPromotionButtonClick"
+                android:onClick="onConfirmPaymentButtonClick"
 
                 android:textSize="15sp"
                 android:textColor="@color/colorPurple"

@@ -10,6 +10,7 @@
         android:id="@+id/button_test_with_hardcode_qrcode"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
+        android:background="@color/colorYellow"
         android:text="Scan QRCode"
         android:onClick="onClickScanQRCodeButton"
 
