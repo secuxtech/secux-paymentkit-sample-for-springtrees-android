@@ -19,7 +19,6 @@ import com.secuxtech.paymentkit.SecuXStoreInfo;
 
 public class MainActivity extends BaseActivity{
 
-
     final private String mAccountName = "secuxdemo";
     final private String mAccountPwd = "secuxdemo168";
 
@@ -81,7 +80,7 @@ public class MainActivity extends BaseActivity{
                         mStoreInfo = storeInfo.second;
 
                         if (mQRCodeParser.mAmount.length()>0) {
-                            if (mQRCodeParser.mToken == "$") {
+                            if (mQRCodeParser.mCoin.compareTo("$") == 0) {
                                 showPromotionDetails();
                             }else{
                                 showPaymentDetails();
@@ -93,7 +92,6 @@ public class MainActivity extends BaseActivity{
                 }).start();
 
             }
-
         }
     }
 
@@ -102,8 +100,6 @@ public class MainActivity extends BaseActivity{
         //startActivity(newIntent);
 
         startActivityForResult(newIntent, 0x01);
-
-
     }
 
 
@@ -125,7 +121,11 @@ public class MainActivity extends BaseActivity{
             public void run() {
                 hideProgress();
                 SecuXStoreInfo.SecuXPromotion promotion = mStoreInfo.getPromotionDetails(mQRCodeParser.mToken);
-                mPromotionDetailsDlg.showDialog(mContext, mStoreInfo, promotion);
+                if (promotion != null) {
+                    mPromotionDetailsDlg.showDialog(mContext, mStoreInfo, promotion);
+                }else{
+                    showAlert("Unsupported promotion!", "");
+                }
             }
         });
 
