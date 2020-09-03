@@ -44,6 +44,8 @@ public class MainActivity extends BaseActivity{
                 requestPermissions(new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 1);
             }
         }
+
+        mAccountManager.setBaseServer("https://pmsweb-test.secux.io");
     }
 
 
