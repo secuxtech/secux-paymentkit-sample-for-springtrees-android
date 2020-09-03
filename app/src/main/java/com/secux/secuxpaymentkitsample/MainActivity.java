@@ -155,9 +155,9 @@ public class MainActivity extends BaseActivity{
 
     }
 
-    public void confirmOperation(SecuXStoreInfo storeInfo, String transID, String coin, String token, String amount, String nonce){
+    public void confirmOperation(SecuXStoreInfo storeInfo, String transID, String coin, String token, String amount, String nonce, String type){
         Pair<Integer, String> verifyRet = mPaymentManager.doActivity(this, this.mAccountName, storeInfo.mDevID,
-                coin, token, transID, amount, nonce);
+                coin, token, transID, amount, nonce, type);
 
         if (verifyRet.first == SecuXServerRequestHandler.SecuXRequestUnauthorized){
             if (!login(this.mAccountName, this.mAccountPwd)){
@@ -165,7 +165,7 @@ public class MainActivity extends BaseActivity{
                 return;
             }
             verifyRet = mPaymentManager.doActivity(this, this.mAccountName, storeInfo.mDevID,
-                    coin, token, transID, amount, nonce);
+                    coin, token, transID, amount, nonce, type);
         }
 
         if (verifyRet.first != SecuXServerRequestHandler.SecuXRequestOK){
@@ -187,7 +187,7 @@ public class MainActivity extends BaseActivity{
         new Thread(new Runnable() {
             @Override
             public void run() {
-                confirmOperation(mStoreInfo, "Promotion00001", mQRCodeParser.mCoin, mQRCodeParser.mToken, mQRCodeParser.mAmount, mQRCodeParser.mNonce);
+                confirmOperation(mStoreInfo, "Promotion00001", mQRCodeParser.mCoin, mQRCodeParser.mToken, mQRCodeParser.mAmount, mQRCodeParser.mNonce, "promotion");
             }
         }).start();
     }
@@ -204,7 +204,7 @@ public class MainActivity extends BaseActivity{
         new Thread(new Runnable() {
             @Override
             public void run() {
-                confirmOperation(mStoreInfo, "Refill00001", mQRCodeParser.mCoin, mQRCodeParser.mToken, mQRCodeParser.mRefill, mQRCodeParser.mNonce);
+                confirmOperation(mStoreInfo, "Refill00001", mQRCodeParser.mCoin, mQRCodeParser.mToken, mQRCodeParser.mRefill, mQRCodeParser.mNonce, "refill");
             }
         }).start();
     }
@@ -220,7 +220,7 @@ public class MainActivity extends BaseActivity{
         new Thread(new Runnable() {
             @Override
             public void run() {
-                confirmOperation(mStoreInfo, "Payment00001", mQRCodeParser.mCoin, mQRCodeParser.mToken, mQRCodeParser.mAmount, mQRCodeParser.mNonce);
+                confirmOperation(mStoreInfo, "Payment00001", mQRCodeParser.mCoin, mQRCodeParser.mToken, mQRCodeParser.mAmount, mQRCodeParser.mNonce, "payment");
             }
         }).start();
     }
