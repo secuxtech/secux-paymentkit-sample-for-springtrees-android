@@ -19,8 +19,8 @@ import com.secuxtech.paymentkit.SecuXStoreInfo;
 
 public class MainActivity extends BaseActivity{
 
-    final private String mAccountName = "secuxdemo";
-    final private String mAccountPwd = "secuxdemo168";
+    final private String mAccountName = "springtreesoperator";
+    final private String mAccountPwd = "springtrees";
 
     private SecuXPaymentManager mPaymentManager = new SecuXPaymentManager();
     private SecuXAccountManager mAccountManager = new SecuXAccountManager();
@@ -45,7 +45,7 @@ public class MainActivity extends BaseActivity{
             }
         }
 
-        mAccountManager.setBaseServer("https://pmsweb-test.secux.io");
+        mAccountManager.setBaseServer("https://pmsweb-sandbox.secuxtech.com");
     }
 
 
