@@ -1,8 +1,8 @@
 # <img src="icon.png" width="30">  SecuXPaymentKitSample  
 The secux-paymentkit-sample-for-springtrees-ios is a sample APP for showing how to scan
-the QRCode from P22 and confirm the promotion to the P22 device via secux-paymentkit-v2. 
+the QRCode from P22 and confirm the promotion / payment / refill to the P22 device via secux-paymentkit-v2. 
 
-<a href="https://maochuns.github.io/SecuXPaymentKitDemoAPP.apk">APK download</a>
+<a href="https://drive.google.com/file/d/1FiqRCfRcBMM6X8PpmdtaFKu86qj87UjK/view?usp=sharing">APK download</a>
 
 # secux-paymentkit-v2
 
