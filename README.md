@@ -169,7 +169,8 @@ for the APIs below:
     Pair<Integer, String> doActivity(Context context, String userID, String devID, 
                                         String coin, String token, 
                                         String transID, String amount, 
-                                        String nonce)
+                                        String nonce,
+                                        String type)
 ```
 #### <u>Parameter</u>
 ```
@@ -181,12 +182,30 @@ for the APIs below:
     transID:    Transaction ID assigned by merchant. 
     amount:     Amount info. from the QRCode.
     nonce:      Nonce info. from the QRCode. 
+    type:       Activity type: promotion / payment / refill.
 ```
+#### <u>Sample</u>
 
-#### <u>Remark</u>
-```
-    An asynchronized function. Payment progress info. and result is in the callback 
-    functions.
+```swift
+    Pair<Integer, String> verifyRet = mPaymentManager.doActivity(this, this.mAccountName, 
+                                                                    storeInfo.mDevID,
+                                                                    coin, 
+                                                                    token, 
+                                                                    transID,
+                                                                    amount, 
+                                                                    nonce, 
+                                                                    type);
+
+    if (verifyRet.first == SecuXServerRequestHandler.SecuXRequestUnauthorized){
+        if (!login(this.mAccountName, this.mAccountPwd)){
+            showAlertInMain("Login failed!", "", true);
+            return;
+        }
+        verifyRet = mPaymentManager.doActivity(this, this.mAccountName, storeInfo.mDevID,
+                                            coin, token, 
+                                            transID, amount, 
+                                            nonce, type);
+    }
 ```
 
 ## Author
