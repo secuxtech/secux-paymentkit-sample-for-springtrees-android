@@ -198,7 +198,6 @@ for the APIs below:
 
     if (verifyRet.first == SecuXServerRequestHandler.SecuXRequestUnauthorized){
         if (!login(this.mAccountName, this.mAccountPwd)){
-            showAlertInMain("Login failed!", "", true);
             return;
         }
         verifyRet = mPaymentManager.doActivity(this, this.mAccountName, storeInfo.mDevID,
