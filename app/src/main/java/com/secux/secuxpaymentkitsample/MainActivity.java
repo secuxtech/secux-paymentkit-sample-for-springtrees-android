@@ -3,6 +3,8 @@ package com.secux.secuxpaymentkitsample;
 
 
 import android.Manifest;
+import android.bluetooth.BluetoothManager;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Build;
@@ -15,6 +17,10 @@ import com.secuxtech.paymentkit.SecuXAccountManager;
 import com.secuxtech.paymentkit.SecuXPaymentManager;
 import com.secuxtech.paymentkit.SecuXServerRequestHandler;
 import com.secuxtech.paymentkit.SecuXStoreInfo;
+
+import java.util.List;
+
+import pub.devrel.easypermissions.EasyPermissions;
 
 
 public class MainActivity extends BaseActivity{
@@ -37,15 +43,8 @@ public class MainActivity extends BaseActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            // Android M Permission check
-
-            if (this.checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-                requestPermissions(new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 1);
-            }
-        }
-
         mAccountManager.setBaseServer("https://pmsweb-sandbox.secuxtech.com");
+        checkBLESetting();
     }
 
 
@@ -97,7 +96,12 @@ public class MainActivity extends BaseActivity{
         }
     }
 
+
     public void onClickScanQRCodeButton(View v){
+        if (!checkBLESetting()) {
+            return;
+        }
+
         Intent newIntent = new Intent(mContext, ScanQRCodeActivity.class);
         //startActivity(newIntent);
 
@@ -158,6 +162,7 @@ public class MainActivity extends BaseActivity{
     }
 
     public void confirmOperation(SecuXStoreInfo storeInfo, String transID, String coin, String token, String amount, String nonce, String type){
+
         Pair<Integer, String> verifyRet = mPaymentManager.doActivity(this, this.mAccountName, storeInfo.mDevID,
                 coin, token, transID, amount, nonce, type);
 
