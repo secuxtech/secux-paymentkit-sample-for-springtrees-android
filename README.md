@@ -10,7 +10,7 @@ the QRCode from P22 and confirm the promotion / payment / refill to the P22 devi
 
 ## Requirements
 
-* Minimum SDK Version: 24
+* Minimum SDK Version: 21
 
 ### Add JitPack repository
 
