@@ -9,10 +9,13 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Base64;
 import android.util.Log;
 import android.util.Pair;
 import android.view.View;
 
+import com.secuxtech.paymentdevicekit.PaymentPeripheralManager;
+import com.secuxtech.paymentdevicekit.SecuXPaymentUtility;
 import com.secuxtech.paymentkit.SecuXAccountManager;
 import com.secuxtech.paymentkit.SecuXPaymentManager;
 import com.secuxtech.paymentkit.SecuXServerRequestHandler;
@@ -22,21 +25,25 @@ import java.util.List;
 
 import pub.devrel.easypermissions.EasyPermissions;
 
+import static com.secuxtech.paymentdevicekit.PaymentPeripheralManagerV1.SecuX_Peripheral_Operation_OK;
+
+
 
 public class MainActivity extends BaseActivity{
 
-    final private String mAccountName = "springtreesoperator";
-    final private String mAccountPwd = "springtrees";
 
     private SecuXPaymentManager mPaymentManager = new SecuXPaymentManager();
     private SecuXAccountManager mAccountManager = new SecuXAccountManager();
+    private PaymentPeripheralManager mPaymentPeripheralManager = new PaymentPeripheralManager(mContext, 10, -80, 30);
 
-    PromotionDetailsDialog mPromotionDetailsDlg = new PromotionDetailsDialog();
-    PaymentDetailsDialog mPaymentDetailsDlg = new PaymentDetailsDialog();
-    RefillDetailsDialog mRefillDetailsDlg = new RefillDetailsDialog();
+    private PromotionDetailsDialog mPromotionDetailsDlg = new PromotionDetailsDialog();
+    private PaymentDetailsDialog mPaymentDetailsDlg = new PaymentDetailsDialog();
+    private RefillDetailsDialog mRefillDetailsDlg = new RefillDetailsDialog();
 
-    SecuXQRCodeParser mQRCodeParser = null;
-    SecuXStoreInfo mStoreInfo = null;
+    private SecuXQRCodeParser mQRCodeParser = null;
+    private SecuXStoreInfo mStoreInfo = null;
+
+    private String mDevIVKey = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,13 +68,16 @@ public class MainActivity extends BaseActivity{
                     showAlertInMain("Unsupported QRCode!", "", true);
                     return;
                 }
-
+                mDevIVKey = "";
                 showProgress("processing...");
 
                 new Thread(new Runnable() {
                     @Override
                     public void run() {
-                        if (!login(mAccountName, mAccountPwd)){
+
+                        String accName = "sttest";
+                        String accPwd = "sttest168";
+                        if (!login(accName, accPwd)){
                             showAlertInMain("Login failed!", "", true);
                             return;
                         }
@@ -77,8 +87,15 @@ public class MainActivity extends BaseActivity{
                             showAlertInMain("Get store info. failed!", "", true);
                             return;
                         }
-
                         mStoreInfo = storeInfo.second;
+
+                        byte[] code = SecuXPaymentUtility.hexStringToData(mQRCodeParser.mNonce);
+                        Pair<Integer, String> ret = mPaymentPeripheralManager.doGetIVKey(code, mContext, 10, mStoreInfo.mDevID, -80, 30);
+                        if (ret.first != SecuX_Peripheral_Operation_OK){
+                            showAlertInMain("Get device ivKey failed!", "", true);
+                            return;
+                        }
+                        mDevIVKey = ret.second;
 
                         if (mQRCodeParser.mAmount.length()>0) {
                             if (mQRCodeParser.mCoin.compareTo("$") == 0) {
@@ -163,28 +180,45 @@ public class MainActivity extends BaseActivity{
 
     public void confirmOperation(SecuXStoreInfo storeInfo, String transID, String coin, String token, String amount, String nonce, String type){
 
-        Pair<Integer, String> verifyRet = mPaymentManager.doActivity(this, this.mAccountName, storeInfo.mDevID,
-                coin, token, transID, amount, nonce, type);
+        String accName = "springtreesoperator";
+        String accPwd = "springtrees";
 
-        if (verifyRet.first == SecuXServerRequestHandler.SecuXRequestUnauthorized){
-            if (!login(this.mAccountName, this.mAccountPwd)){
-                showAlertInMain("Login failed!", "", true);
-                return;
-            }
-            verifyRet = mPaymentManager.doActivity(this, this.mAccountName, storeInfo.mDevID,
-                    coin, token, transID, amount, nonce, type);
+        if (!login(accName, accPwd)){
+            mPaymentPeripheralManager.requestDisconnect();
+            showAlertInMain("Login failed!", "", true);
+            return;
         }
 
-        if (verifyRet.first != SecuXServerRequestHandler.SecuXRequestOK){
-            showAlertInMain("Verify the operation data to P22 failed!", "error: " + verifyRet.second, true);
-        }else{
+        Pair<Integer, String> genEncDataRet = mPaymentManager.generateEncryptedData(mDevIVKey, accName, storeInfo.mDevID,
+                coin, token, transID, amount, type);
+
+        if (genEncDataRet.first != SecuXServerRequestHandler.SecuXRequestOK){
+            mPaymentPeripheralManager.requestDisconnect();
+            showAlertInMain("Generate encrypted data failed!", "error: " + genEncDataRet.second, true);
+            return;
+        }
+
+        String encryptedStr = genEncDataRet.second;
+        final byte[] encryptedData = Base64.decode(encryptedStr, Base64.DEFAULT);
+
+        android.util.Pair<Integer, String> verifyRet = mPaymentPeripheralManager.doPaymentVerification(encryptedData);
+        if (verifyRet.first == SecuX_Peripheral_Operation_OK){
             showAlertInMain("Verify the operation data to P22 successfully!", "", true);
+        }else{
+            mPaymentPeripheralManager.requestDisconnect();
+            showAlertInMain("Verify the operation data to P22 failed!", verifyRet.second, true);
         }
+
+    }
+
+    public void cancelOperation(){
+        this.mPaymentPeripheralManager.requestDisconnect();
     }
 
 
     public void onCancelPromotionButtonClick(View v){
         mPromotionDetailsDlg.dismiss();
+        cancelOperation();
     }
 
     public void onConfirmPromotionButtonClick(View v){
@@ -202,6 +236,7 @@ public class MainActivity extends BaseActivity{
 
     public void onCancelRefillButtonClick(View v){
         mRefillDetailsDlg.dismiss();
+        cancelOperation();
     }
 
     public void onConfirmRefillButtonClick(View v){
@@ -218,6 +253,7 @@ public class MainActivity extends BaseActivity{
 
     public void onCancelPaymentButtonClick(View v){
         mPaymentDetailsDlg.dismiss();
+        cancelOperation();
     }
 
     public void onConfirmPaymentButtonClick(View v){
