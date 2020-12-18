@@ -28,6 +28,7 @@ allprojects {
 ```java
 dependencies {
     implementation 'com.github.secuxtech:secux-paymentkit-v2-android:{version}'
+    implementation 'com.github.secuxtech:secux-paymentdevicekit-v2-android:2.1.10'
 }
 ```
 ### Add bluetooth privacy permissions
@@ -141,18 +142,21 @@ SecuX Server API:
     Pair<Pair<Integer, String>, SecuXStoreInfo> storeInfoRet = mPaymentManager.getStoreInfo(mDevIDhash);
 ```
 
-2. <b>Do promotation / payment / refill operation</b>
+2. <b>Do check-in / promotation / payment / refill operation</b>
 
 Confirm the promotation/payment/refill operation to the P22 device.
 
-![Procedure](doActivityProcedure.png)
+![Procedure](P22ConfirmFlow.png)
 
-SecuX Server API:
+2.1 SecuX Server API:
+
+- Login operator account
+<a href="https://documenter.getpostman.com/view/9715663/SzfDvj4S?version=latest#76b3bbc9-2853-42c4-823b-3e0d47d58cf6">/api/Admin/Login</a>
 
 - Encrypt operation data 
 <a href="https://documenter.getpostman.com/view/9715663/SzfDvj4S?version=latest#ff393d68-3045-451f-b175-3721f3281d74">/api/B2B/ProduceCipher</a>
 
-SecuX Device APIs:
+2.2 SecuX Device APIs:
 
 Please refer to the 
 <a href="https://github.com/secuxtech/secux-paymentdevicekit-v2-android">secux_paymentdevicekit</a> 
@@ -163,49 +167,6 @@ for the APIs below:
 - Cancel operation 
 
 - Send encrypted operation data to P22 API
-
-#### <u>Declaration</u>
-```java
-    Pair<Integer, String> doActivity(Context context, String userID, String devID, 
-                                        String coin, String token, 
-                                        String transID, String amount, 
-                                        String nonce,
-                                        String type)
-```
-#### <u>Parameter</u>
-```
-    context:    Current activity context.
-    userID:     Merchant account name.
-    devID:      Current device ID, which can be get via getStoreInfo API
-    coin:       Coin info. from the QRCode.
-    token:      Token info. from the QRCode.
-    transID:    Transaction ID assigned by merchant. 
-    amount:     Amount info. from the QRCode.
-    nonce:      Nonce info. from the QRCode. 
-    type:       Activity type: promotion / payment / refill.
-```
-#### <u>Sample</u>
-
-```swift
-    Pair<Integer, String> verifyRet = mPaymentManager.doActivity(this, this.mAccountName, 
-                                                                    storeInfo.mDevID,
-                                                                    coin, 
-                                                                    token, 
-                                                                    transID,
-                                                                    amount, 
-                                                                    nonce, 
-                                                                    type);
-
-    if (verifyRet.first == SecuXServerRequestHandler.SecuXRequestUnauthorized){
-        if (!login(this.mAccountName, this.mAccountPwd)){
-            return;
-        }
-        verifyRet = mPaymentManager.doActivity(this, this.mAccountName, storeInfo.mDevID,
-                                            coin, token, 
-                                            transID, amount, 
-                                            nonce, type);
-    }
-```
 
 ## Author
 
