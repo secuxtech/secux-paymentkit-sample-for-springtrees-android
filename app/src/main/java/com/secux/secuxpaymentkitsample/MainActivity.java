@@ -188,9 +188,9 @@ public class MainActivity extends BaseActivity{
             showAlertInMain("Login failed!", "", true);
             return;
         }
-
+        String timeZone = "8"; //Time Zones in Taiwan
         Pair<Integer, String> genEncDataRet = mPaymentManager.generateEncryptedData(mDevIVKey, accName, storeInfo.mDevID,
-                coin, token, transID, amount, type);
+                coin, token, transID, amount, type, timeZone);
 
         if (genEncDataRet.first != SecuXServerRequestHandler.SecuXRequestOK){
             mPaymentPeripheralManager.requestDisconnect();
