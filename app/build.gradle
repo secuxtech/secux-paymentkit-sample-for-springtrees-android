@@ -23,7 +23,7 @@ android {
 }
 
 dependencies {
-    implementation fileTree(dir: "libs", include: ["*.jar"])
+//    implementation fileTree(dir: "libs", include: ["*.jar", "*.aar"])
     implementation 'androidx.appcompat:appcompat:1.2.0'
     implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
     implementation 'androidx.wear:wear:1.0.0'
@@ -35,6 +35,6 @@ dependencies {
     implementation 'pub.devrel:easypermissions:3.0.0'
 
     implementation 'com.github.secuxtech:secux-paymentkit-v2-android:2.2.27'
-    implementation 'com.github.secuxtech:secux-paymentdevicekit-v2-android:2.1.10'
+    implementation 'com.github.secuxtech:secux-paymentdevicekit-v2-android:2.1.13'
 
 }

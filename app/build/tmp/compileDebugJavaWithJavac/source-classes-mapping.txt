@@ -12,6 +12,14 @@ com/secux/secuxpaymentkitsample/BaseActivity.java
  com.secux.secuxpaymentkitsample.BaseActivity$6
 com/secux/secuxpaymentkitsample/CommonProgressDialog.java
  com.secux.secuxpaymentkitsample.CommonProgressDialog
+com/secux/secuxpaymentkitsample/ScanQRCodeActivity.java
+ com.secux.secuxpaymentkitsample.ScanQRCodeActivity
+com/secux/secuxpaymentkitsample/PaymentDetailsDialog.java
+ com.secux.secuxpaymentkitsample.PaymentDetailsDialog
+com/secux/secuxpaymentkitsample/RefillDetailsDialog.java
+ com.secux.secuxpaymentkitsample.RefillDetailsDialog
+com/secux/secuxpaymentkitsample/PromotionDetailsDialog.java
+ com.secux.secuxpaymentkitsample.PromotionDetailsDialog
 com/secux/secuxpaymentkitsample/MainActivity.java
  com.secux.secuxpaymentkitsample.MainActivity
  com.secux.secuxpaymentkitsample.MainActivity$1
@@ -21,11 +29,3 @@ com/secux/secuxpaymentkitsample/MainActivity.java
  com.secux.secuxpaymentkitsample.MainActivity$5
  com.secux.secuxpaymentkitsample.MainActivity$6
  com.secux.secuxpaymentkitsample.MainActivity$7
-com/secux/secuxpaymentkitsample/PaymentDetailsDialog.java
- com.secux.secuxpaymentkitsample.PaymentDetailsDialog
-com/secux/secuxpaymentkitsample/RefillDetailsDialog.java
- com.secux.secuxpaymentkitsample.RefillDetailsDialog
-com/secux/secuxpaymentkitsample/PromotionDetailsDialog.java
- com.secux.secuxpaymentkitsample.PromotionDetailsDialog
-com/secux/secuxpaymentkitsample/ScanQRCodeActivity.java
- com.secux.secuxpaymentkitsample.ScanQRCodeActivity

@@ -5,12 +5,12 @@ INJECTED from D:\Users\jat\AndroidProject\secux-paymentkit-sample-for-springtree
 INJECTED from D:\Users\jat\AndroidProject\secux-paymentkit-sample-for-springtrees-android\app\src\main\AndroidManifest.xml:2:1-32:12
 INJECTED from D:\Users\jat\AndroidProject\secux-paymentkit-sample-for-springtrees-android\app\src\main\AndroidManifest.xml:2:1-32:12
 MERGED from [pub.devrel:easypermissions:3.0.0] C:\Users\jat11\.gradle\caches\transforms-2\files-2.1\5afec92fe9237d7c63ab1b0862330f69\jetified-easypermissions-3.0.0\AndroidManifest.xml:2:1-19:12
-MERGED from [com.github.secuxtech:secux-paymentkit-v2-android:2.2.27] C:\Users\jat11\.gradle\caches\transforms-2\files-2.1\4c218e85155d08bbfeefc8982b30cc2d\jetified-secux-paymentkit-v2-android-2.2.27\AndroidManifest.xml:2:1-11:12
-MERGED from [com.github.secuxtech:secux-paymentdevicekit-v2-android:2.1.10] C:\Users\jat11\.gradle\caches\transforms-2\files-2.1\0a4a5d86d69071267df9e4c2c9e07893\jetified-secux-paymentdevicekit-v2-android-2.1.10\AndroidManifest.xml:2:1-19:12
 MERGED from [androidx.appcompat:appcompat:1.2.0] C:\Users\jat11\.gradle\caches\transforms-2\files-2.1\0cb9ff486f5edb59977e253831b932c8\appcompat-1.2.0\AndroidManifest.xml:17:1-24:12
 MERGED from [androidx.wear:wear:1.0.0] C:\Users\jat11\.gradle\caches\transforms-2\files-2.1\8b931715fd04d72975d9fa343f363676\wear-1.0.0\AndroidManifest.xml:17:1-22:12
 MERGED from [androidx.constraintlayout:constraintlayout:1.1.3] C:\Users\jat11\.gradle\caches\transforms-2\files-2.1\dd5a17c1008fb18b92564321c063363b\constraintlayout-1.1.3\AndroidManifest.xml:2:1-11:12
 MERGED from [cn.bingoogolapple:bga-qrcode-zxing:1.3.7] C:\Users\jat11\.gradle\caches\transforms-2\files-2.1\6ea35e31f824bb45a99189d70906b7ee\jetified-bga-qrcode-zxing-1.3.7\AndroidManifest.xml:2:1-9:12
+MERGED from [com.github.secuxtech:secux-paymentkit-v2-android:2.2.27] C:\Users\jat11\.gradle\caches\transforms-2\files-2.1\4c218e85155d08bbfeefc8982b30cc2d\jetified-secux-paymentkit-v2-android-2.2.27\AndroidManifest.xml:2:1-11:12
+MERGED from [com.github.secuxtech:secux-paymentdevicekit-v2-android:2.1.13] C:\Users\jat11\.gradle\caches\transforms-2\files-2.1\0eae5bed8d35652154b3ff590bf54a8c\jetified-secux-paymentdevicekit-v2-android-2.1.13\AndroidManifest.xml:2:1-19:12
 MERGED from [androidx.fragment:fragment:1.1.0] C:\Users\jat11\.gradle\caches\transforms-2\files-2.1\9a6fa3c553e02b3a07c8a8565588eb54\fragment-1.1.0\AndroidManifest.xml:17:1-24:12
 MERGED from [androidx.appcompat:appcompat-resources:1.2.0] C:\Users\jat11\.gradle\caches\transforms-2\files-2.1\47185ad723d232e6208c03e6fdcb34a4\jetified-appcompat-resources-1.2.0\AndroidManifest.xml:17:1-24:12
 MERGED from [androidx.recyclerview:recyclerview:1.0.0] C:\Users\jat11\.gradle\caches\transforms-2\files-2.1\c188e074352c02b56a19f99bc8ec05a4\recyclerview-1.0.0\AndroidManifest.xml:17:1-22:12
@@ -60,14 +60,14 @@ INJECTED from D:\Users\jat\AndroidProject\secux-paymentkit-sample-for-springtree
 		ADDED from D:\Users\jat\AndroidProject\secux-paymentkit-sample-for-springtrees-android\app\src\main\AndroidManifest.xml:2:11-69
 uses-permission#android.permission.BLUETOOTH
 ADDED from D:\Users\jat\AndroidProject\secux-paymentkit-sample-for-springtrees-android\app\src\main\AndroidManifest.xml:5:5-68
-MERGED from [com.github.secuxtech:secux-paymentdevicekit-v2-android:2.1.10] C:\Users\jat11\.gradle\caches\transforms-2\files-2.1\0a4a5d86d69071267df9e4c2c9e07893\jetified-secux-paymentdevicekit-v2-android-2.1.10\AndroidManifest.xml:11:5-68
-MERGED from [com.github.secuxtech:secux-paymentdevicekit-v2-android:2.1.10] C:\Users\jat11\.gradle\caches\transforms-2\files-2.1\0a4a5d86d69071267df9e4c2c9e07893\jetified-secux-paymentdevicekit-v2-android-2.1.10\AndroidManifest.xml:11:5-68
+MERGED from [com.github.secuxtech:secux-paymentdevicekit-v2-android:2.1.13] C:\Users\jat11\.gradle\caches\transforms-2\files-2.1\0eae5bed8d35652154b3ff590bf54a8c\jetified-secux-paymentdevicekit-v2-android-2.1.13\AndroidManifest.xml:11:5-68
+MERGED from [com.github.secuxtech:secux-paymentdevicekit-v2-android:2.1.13] C:\Users\jat11\.gradle\caches\transforms-2\files-2.1\0eae5bed8d35652154b3ff590bf54a8c\jetified-secux-paymentdevicekit-v2-android-2.1.13\AndroidManifest.xml:11:5-68
 	android:name
 		ADDED from D:\Users\jat\AndroidProject\secux-paymentkit-sample-for-springtrees-android\app\src\main\AndroidManifest.xml:5:22-65
 uses-permission#android.permission.BLUETOOTH_ADMIN
 ADDED from D:\Users\jat\AndroidProject\secux-paymentkit-sample-for-springtrees-android\app\src\main\AndroidManifest.xml:6:5-74
-MERGED from [com.github.secuxtech:secux-paymentdevicekit-v2-android:2.1.10] C:\Users\jat11\.gradle\caches\transforms-2\files-2.1\0a4a5d86d69071267df9e4c2c9e07893\jetified-secux-paymentdevicekit-v2-android-2.1.10\AndroidManifest.xml:12:5-74
-MERGED from [com.github.secuxtech:secux-paymentdevicekit-v2-android:2.1.10] C:\Users\jat11\.gradle\caches\transforms-2\files-2.1\0a4a5d86d69071267df9e4c2c9e07893\jetified-secux-paymentdevicekit-v2-android-2.1.10\AndroidManifest.xml:12:5-74
+MERGED from [com.github.secuxtech:secux-paymentdevicekit-v2-android:2.1.13] C:\Users\jat11\.gradle\caches\transforms-2\files-2.1\0eae5bed8d35652154b3ff590bf54a8c\jetified-secux-paymentdevicekit-v2-android-2.1.13\AndroidManifest.xml:12:5-74
+MERGED from [com.github.secuxtech:secux-paymentdevicekit-v2-android:2.1.13] C:\Users\jat11\.gradle\caches\transforms-2\files-2.1\0eae5bed8d35652154b3ff590bf54a8c\jetified-secux-paymentdevicekit-v2-android-2.1.13\AndroidManifest.xml:12:5-74
 	android:name
 		ADDED from D:\Users\jat\AndroidProject\secux-paymentkit-sample-for-springtrees-android\app\src\main\AndroidManifest.xml:6:22-71
 uses-permission#android.permission.INTERNET
@@ -80,8 +80,8 @@ ADDED from D:\Users\jat\AndroidProject\secux-paymentkit-sample-for-springtrees-a
 		ADDED from D:\Users\jat\AndroidProject\secux-paymentkit-sample-for-springtrees-android\app\src\main\AndroidManifest.xml:8:22-78
 uses-permission#android.permission.ACCESS_FINE_LOCATION
 ADDED from D:\Users\jat\AndroidProject\secux-paymentkit-sample-for-springtrees-android\app\src\main\AndroidManifest.xml:9:5-79
-MERGED from [com.github.secuxtech:secux-paymentdevicekit-v2-android:2.1.10] C:\Users\jat11\.gradle\caches\transforms-2\files-2.1\0a4a5d86d69071267df9e4c2c9e07893\jetified-secux-paymentdevicekit-v2-android-2.1.10\AndroidManifest.xml:13:5-79
-MERGED from [com.github.secuxtech:secux-paymentdevicekit-v2-android:2.1.10] C:\Users\jat11\.gradle\caches\transforms-2\files-2.1\0a4a5d86d69071267df9e4c2c9e07893\jetified-secux-paymentdevicekit-v2-android-2.1.10\AndroidManifest.xml:13:5-79
+MERGED from [com.github.secuxtech:secux-paymentdevicekit-v2-android:2.1.13] C:\Users\jat11\.gradle\caches\transforms-2\files-2.1\0eae5bed8d35652154b3ff590bf54a8c\jetified-secux-paymentdevicekit-v2-android-2.1.13\AndroidManifest.xml:13:5-79
+MERGED from [com.github.secuxtech:secux-paymentdevicekit-v2-android:2.1.13] C:\Users\jat11\.gradle\caches\transforms-2\files-2.1\0eae5bed8d35652154b3ff590bf54a8c\jetified-secux-paymentdevicekit-v2-android-2.1.13\AndroidManifest.xml:13:5-79
 	android:name
 		ADDED from D:\Users\jat\AndroidProject\secux-paymentkit-sample-for-springtrees-android\app\src\main\AndroidManifest.xml:9:22-76
 uses-permission#android.permission.CAMERA
@@ -142,10 +142,6 @@ INJECTED from D:\Users\jat\AndroidProject\secux-paymentkit-sample-for-springtree
 INJECTED from D:\Users\jat\AndroidProject\secux-paymentkit-sample-for-springtrees-android\app\src\main\AndroidManifest.xml
 MERGED from [pub.devrel:easypermissions:3.0.0] C:\Users\jat11\.gradle\caches\transforms-2\files-2.1\5afec92fe9237d7c63ab1b0862330f69\jetified-easypermissions-3.0.0\AndroidManifest.xml:7:5-9:41
 MERGED from [pub.devrel:easypermissions:3.0.0] C:\Users\jat11\.gradle\caches\transforms-2\files-2.1\5afec92fe9237d7c63ab1b0862330f69\jetified-easypermissions-3.0.0\AndroidManifest.xml:7:5-9:41
-MERGED from [com.github.secuxtech:secux-paymentkit-v2-android:2.2.27] C:\Users\jat11\.gradle\caches\transforms-2\files-2.1\4c218e85155d08bbfeefc8982b30cc2d\jetified-secux-paymentkit-v2-android-2.2.27\AndroidManifest.xml:7:5-9:41
-MERGED from [com.github.secuxtech:secux-paymentkit-v2-android:2.2.27] C:\Users\jat11\.gradle\caches\transforms-2\files-2.1\4c218e85155d08bbfeefc8982b30cc2d\jetified-secux-paymentkit-v2-android-2.2.27\AndroidManifest.xml:7:5-9:41
-MERGED from [com.github.secuxtech:secux-paymentdevicekit-v2-android:2.1.10] C:\Users\jat11\.gradle\caches\transforms-2\files-2.1\0a4a5d86d69071267df9e4c2c9e07893\jetified-secux-paymentdevicekit-v2-android-2.1.10\AndroidManifest.xml:7:5-9:41
-MERGED from [com.github.secuxtech:secux-paymentdevicekit-v2-android:2.1.10] C:\Users\jat11\.gradle\caches\transforms-2\files-2.1\0a4a5d86d69071267df9e4c2c9e07893\jetified-secux-paymentdevicekit-v2-android-2.1.10\AndroidManifest.xml:7:5-9:41
 MERGED from [androidx.appcompat:appcompat:1.2.0] C:\Users\jat11\.gradle\caches\transforms-2\files-2.1\0cb9ff486f5edb59977e253831b932c8\appcompat-1.2.0\AndroidManifest.xml:20:5-22:41
 MERGED from [androidx.appcompat:appcompat:1.2.0] C:\Users\jat11\.gradle\caches\transforms-2\files-2.1\0cb9ff486f5edb59977e253831b932c8\appcompat-1.2.0\AndroidManifest.xml:20:5-22:41
 MERGED from [androidx.wear:wear:1.0.0] C:\Users\jat11\.gradle\caches\transforms-2\files-2.1\8b931715fd04d72975d9fa343f363676\wear-1.0.0\AndroidManifest.xml:20:5-44
@@ -154,6 +150,10 @@ MERGED from [androidx.constraintlayout:constraintlayout:1.1.3] C:\Users\jat11\.g
 MERGED from [androidx.constraintlayout:constraintlayout:1.1.3] C:\Users\jat11\.gradle\caches\transforms-2\files-2.1\dd5a17c1008fb18b92564321c063363b\constraintlayout-1.1.3\AndroidManifest.xml:5:5-7:41
 MERGED from [cn.bingoogolapple:bga-qrcode-zxing:1.3.7] C:\Users\jat11\.gradle\caches\transforms-2\files-2.1\6ea35e31f824bb45a99189d70906b7ee\jetified-bga-qrcode-zxing-1.3.7\AndroidManifest.xml:5:5-7:41
 MERGED from [cn.bingoogolapple:bga-qrcode-zxing:1.3.7] C:\Users\jat11\.gradle\caches\transforms-2\files-2.1\6ea35e31f824bb45a99189d70906b7ee\jetified-bga-qrcode-zxing-1.3.7\AndroidManifest.xml:5:5-7:41
+MERGED from [com.github.secuxtech:secux-paymentkit-v2-android:2.2.27] C:\Users\jat11\.gradle\caches\transforms-2\files-2.1\4c218e85155d08bbfeefc8982b30cc2d\jetified-secux-paymentkit-v2-android-2.2.27\AndroidManifest.xml:7:5-9:41
+MERGED from [com.github.secuxtech:secux-paymentkit-v2-android:2.2.27] C:\Users\jat11\.gradle\caches\transforms-2\files-2.1\4c218e85155d08bbfeefc8982b30cc2d\jetified-secux-paymentkit-v2-android-2.2.27\AndroidManifest.xml:7:5-9:41
+MERGED from [com.github.secuxtech:secux-paymentdevicekit-v2-android:2.1.13] C:\Users\jat11\.gradle\caches\transforms-2\files-2.1\0eae5bed8d35652154b3ff590bf54a8c\jetified-secux-paymentdevicekit-v2-android-2.1.13\AndroidManifest.xml:7:5-9:41
+MERGED from [com.github.secuxtech:secux-paymentdevicekit-v2-android:2.1.13] C:\Users\jat11\.gradle\caches\transforms-2\files-2.1\0eae5bed8d35652154b3ff590bf54a8c\jetified-secux-paymentdevicekit-v2-android-2.1.13\AndroidManifest.xml:7:5-9:41
 MERGED from [androidx.fragment:fragment:1.1.0] C:\Users\jat11\.gradle\caches\transforms-2\files-2.1\9a6fa3c553e02b3a07c8a8565588eb54\fragment-1.1.0\AndroidManifest.xml:20:5-22:41
 MERGED from [androidx.fragment:fragment:1.1.0] C:\Users\jat11\.gradle\caches\transforms-2\files-2.1\9a6fa3c553e02b3a07c8a8565588eb54\fragment-1.1.0\AndroidManifest.xml:20:5-22:41
 MERGED from [androidx.appcompat:appcompat-resources:1.2.0] C:\Users\jat11\.gradle\caches\transforms-2\files-2.1\47185ad723d232e6208c03e6fdcb34a4\jetified-appcompat-resources-1.2.0\AndroidManifest.xml:20:5-22:41
@@ -235,11 +235,11 @@ ADDED from [pub.devrel:easypermissions:3.0.0] C:\Users\jat11\.gradle\caches\tran
 	android:name
 		ADDED from [pub.devrel:easypermissions:3.0.0] C:\Users\jat11\.gradle\caches\transforms-2\files-2.1\5afec92fe9237d7c63ab1b0862330f69\jetified-easypermissions-3.0.0\AndroidManifest.xml:13:13-86
 uses-feature#android.hardware.bluetooth_le
-ADDED from [com.github.secuxtech:secux-paymentdevicekit-v2-android:2.1.10] C:\Users\jat11\.gradle\caches\transforms-2\files-2.1\0a4a5d86d69071267df9e4c2c9e07893\jetified-secux-paymentdevicekit-v2-android-2.1.10\AndroidManifest.xml:15:5-17:35
+ADDED from [com.github.secuxtech:secux-paymentdevicekit-v2-android:2.1.13] C:\Users\jat11\.gradle\caches\transforms-2\files-2.1\0eae5bed8d35652154b3ff590bf54a8c\jetified-secux-paymentdevicekit-v2-android-2.1.13\AndroidManifest.xml:15:5-17:35
 	android:required
-		ADDED from [com.github.secuxtech:secux-paymentdevicekit-v2-android:2.1.10] C:\Users\jat11\.gradle\caches\transforms-2\files-2.1\0a4a5d86d69071267df9e4c2c9e07893\jetified-secux-paymentdevicekit-v2-android-2.1.10\AndroidManifest.xml:17:9-32
+		ADDED from [com.github.secuxtech:secux-paymentdevicekit-v2-android:2.1.13] C:\Users\jat11\.gradle\caches\transforms-2\files-2.1\0eae5bed8d35652154b3ff590bf54a8c\jetified-secux-paymentdevicekit-v2-android-2.1.13\AndroidManifest.xml:17:9-32
 	android:name
-		ADDED from [com.github.secuxtech:secux-paymentdevicekit-v2-android:2.1.10] C:\Users\jat11\.gradle\caches\transforms-2\files-2.1\0a4a5d86d69071267df9e4c2c9e07893\jetified-secux-paymentdevicekit-v2-android-2.1.10\AndroidManifest.xml:16:9-53
+		ADDED from [com.github.secuxtech:secux-paymentdevicekit-v2-android:2.1.13] C:\Users\jat11\.gradle\caches\transforms-2\files-2.1\0eae5bed8d35652154b3ff590bf54a8c\jetified-secux-paymentdevicekit-v2-android-2.1.13\AndroidManifest.xml:16:9-53
 uses-permission#android.permission.FLASHLIGHT
 ADDED from [cn.bingoogolapple:bga-qrcode-core:1.3.7] C:\Users\jat11\.gradle\caches\transforms-2\files-2.1\aaeba92b9cd86a39a34952d4995218e2\jetified-bga-qrcode-core-1.3.7\AndroidManifest.xml:10:5-69
 	android:name

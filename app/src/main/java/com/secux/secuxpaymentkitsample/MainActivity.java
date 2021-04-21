@@ -90,9 +90,14 @@ public class MainActivity extends BaseActivity{
                         mStoreInfo = storeInfo.second;
 
                         byte[] code = SecuXPaymentUtility.hexStringToData(mQRCodeParser.mNonce);
-                        Pair<Integer, String> ret = mPaymentPeripheralManager.doGetIVKey(code, mContext, 10, mStoreInfo.mDevID, -80, 30);
+                        Pair<Integer, String> ret = new Pair<>(0, "");
+                        try {
+                            ret = mPaymentPeripheralManager.doGetIVKey(code, mContext, 10, mStoreInfo.mDevID, -80, 30);
+                        }catch (Exception e){
+//                            e.printStackTrace();
+                        }
                         if (ret.first != SecuX_Peripheral_Operation_OK){
-                            showAlertInMain("Get device ivKey failed!", "", true);
+                            showAlertInMain("Get device ivKey failed!", ret.second, true);
                             return;
                         }
                         mDevIVKey = ret.second;
@@ -188,7 +193,7 @@ public class MainActivity extends BaseActivity{
             showAlertInMain("Login failed!", "", true);
             return;
         }
-        String timeZone = "8"; //Time Zones in Taiwan
+        String timeZone = "28800"; //Time Zones (seconds) in Taiwan
         Pair<Integer, String> genEncDataRet = mPaymentManager.generateEncryptedData(mDevIVKey, accName, storeInfo.mDevID,
                 coin, token, transID, amount, type, timeZone);
 

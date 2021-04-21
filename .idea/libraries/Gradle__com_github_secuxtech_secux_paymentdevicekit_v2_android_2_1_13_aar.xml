@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="Gradle: com.github.secuxtech:secux-paymentdevicekit-v2-android:2.1.13@aar">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/0eae5bed8d35652154b3ff590bf54a8c/jetified-secux-paymentdevicekit-v2-android-2.1.13/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/0eae5bed8d35652154b3ff590bf54a8c/jetified-secux-paymentdevicekit-v2-android-2.1.13/res" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/0eae5bed8d35652154b3ff590bf54a8c/jetified-secux-paymentdevicekit-v2-android-2.1.13/AndroidManifest.xml" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.github.secuxtech/secux-paymentdevicekit-v2-android/2.1.13/63a7490120bc568e0bb33963d428879491cb9982/secux-paymentdevicekit-v2-android-2.1.13-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>
