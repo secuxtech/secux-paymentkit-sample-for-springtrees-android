@@ -45,6 +45,16 @@ public class MainActivity extends BaseActivity{
 
     private String mDevIVKey = "";
 
+    private String operatorName = "";
+    private String operatorPassword = "";
+
+    public boolean configureOperator(String name, String password) {
+        if (name == null || name.trim().isEmpty() || password == null || password.isEmpty()) { return false; }
+        operatorName = name;
+        operatorPassword = password;
+        return true;
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -75,8 +85,13 @@ public class MainActivity extends BaseActivity{
                     @Override
                     public void run() {
 
-                        String accName = "sttest";
-                        String accPwd = "sttest168";
+                        if (operatorName.isEmpty() || operatorPassword.isEmpty()) {
+                            mPaymentPeripheralManager.requestDisconnect();
+                            showAlertInMain("Configure fresh test operator credentials first", "", true);
+                            return;
+                        }
+                        String accName = operatorName;
+                        String accPwd = operatorPassword;
                         if (!login(accName, accPwd)){
                             showAlertInMain("Login failed!", "", true);
                             return;
@@ -185,8 +200,13 @@ public class MainActivity extends BaseActivity{
 
     public void confirmOperation(SecuXStoreInfo storeInfo, String transID, String coin, String token, String amount, String nonce, String type){
 
-        String accName = "springtreesoperator";
-        String accPwd = "springtrees";
+        if (operatorName.isEmpty() || operatorPassword.isEmpty()) {
+            mPaymentPeripheralManager.requestDisconnect();
+            showAlertInMain("Configure fresh test operator credentials first", "", true);
+            return;
+        }
+        String accName = operatorName;
+        String accPwd = operatorPassword;
 
         if (!login(accName, accPwd)){
             mPaymentPeripheralManager.requestDisconnect();
